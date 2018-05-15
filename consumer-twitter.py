@@ -40,7 +40,7 @@ class CidaenTwitterConsumer(tweepy.StreamListener):
             'hashtags': hashtags,
             'urls': urls,
             'created_at': created_at,
-            'country': country 
+            'location': country 
         }
         producer.send(configuration['kafka_topic'], json.dumps(tweet_info).encode('utf-8'))
 
