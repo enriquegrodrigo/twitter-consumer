@@ -27,7 +27,7 @@ class CidaenTwitterConsumer(tweepy.StreamListener):
         retweet_count = tweet.retweet_count
         user = tweet.user.screen_name
         hashtags = [hashtag['text'] for hashtag in tweet.entities["hashtags"]]
-        urls = [ urlobj['expanded_url'] for urlobj in tweet.entities["urls"]],
+        urls = [urlobj['expanded_url'] for urlobj in tweet.entities["urls"]]
         created_at = str(tweet.created_at)
         if tweet.place: 
             country = tweet.place.country
