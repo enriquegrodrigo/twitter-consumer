@@ -1,25 +1,25 @@
-# docker-base
+# twitter-consummer 
 
-Esta es la imagen base del curso. Los diferentes módulos del curso extenderán esta imagen o la 
-usarán directamente (dependiendo de sus necesidades).
+Docker image with a simple twitter consumer that listens for a list of keywords and sends tweets to a Apachee Kafka topic. 
 
 ## Uso
 
-Para ejecutar una libreta de Jupyter en el directorio actual:
-
-	docker run --rm -it -v $(pwd)/:/home/work/project -p 8888:8888 cidaen/docker-base
-
-Para ejecutar una aplicación de Python que no está en un cuaderno:
-
-	docker run --rm -it -v $(pwd)/:/home/work/project -p 8888:8888 cidaen/docker-base python app.py
-
-
-## Añadir requisitos 
-
-Para añadir requisitos se puede modificar el fichero `requirements.txt` y construir la imagen con el comando: 
+You have to specify a configuration file with the parameters for the consumer (JSON):
 
 ```
-  docker build -t="Name of the image" .
+  {
+    "kafka_server": "kafka:9092",
+    "consumer_token": "CONSUMER_TOKEN",
+    "consumer_secret":  "CONSUMER_SECRET",
+    "access_token": "ACCESS_TOKEN"
+    "access_token_secret" : "ACCESS_TOKEN_SECRET",
+    "keywords": ["keyword1", "keyword2",...]
+    "languages": ["en", "es", ...],
+    "kafka_topic": "test"
+} 
 ```
 
-Este comando se debe ejecutar en la carpeta base del repositorio.   
+Then you just have to run it:
+
+	docker run --rm -it -v $(pwd)/:/work/ enriquegrodrigo/twitter-consumer config.json 
+
